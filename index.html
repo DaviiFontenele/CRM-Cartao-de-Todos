@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Local - Estilo Pipedrive</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>CRM Local - Cartão de Todos</h1>
+    <div class="dashboard">
+      <div>Total de Leads: <span id="totalLeads">0</span></div>
+      <div>Total por Status:
+        <ul id="statusCount"></ul>
+      </div>
+      <div>Conversão por Consultor:
+        <ul id="conversionByConsultant"></ul>
+      </div>
+      <div class="dashboard-actions">
+        <button onclick="exportToCSV()">Exportar CSV</button>
+        <button onclick="exportToJSON()">Exportar JSON</button>
+        <input type="file" onchange="importFromJSON(event)" />
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="kanban">
+      <div class="column" data-status="Novo"><h2>Novo</h2><div class="card-container" id="novo"></div></div>
+      <div class="column" data-status="Distribuido"><h2>Distribuído</h2><div class="card-container" id="distribuido"></div></div>
+      <div class="column" data-status="Acompanhamento"><h2>Acompanhamento</h2><div class="card-container" id="acompanhamento"></div></div>
+      <div class="column" data-status="Agendado"><h2>Agendado</h2><div class="card-container" id="agendado"></div></div>
+      <div class="column" data-status="Fechado"><h2>Fechado</h2><div class="card-container" id="fechado"></div></div>
+      <div class="column" data-status="Perdido"><h2>Perdido</h2><div class="card-container" id="perdido"></div></div>
+    </div>
+
+    <section class="form-section">
+      <h2>Adicionar Lead</h2>
+      <form id="leadForm">
+        <input type="text" id="nome" placeholder="Nome" required />
+        <input type="text" id="telefone" placeholder="Telefone" required />
+        <input type="text" id="origem" placeholder="Origem do lead" required />
+        <select id="consultor">
+          <option>Lara Fabia</option><option>Manu</option><option>Ligia</option>
+          <option>Paloma</option><option>Lidia</option><option>Davi</option>
+          <option>Elinar</option><option>Claudia</option><option>Lais</option><option>Adalberto</option>
+        </select>
+        <textarea id="observacoes" placeholder="Observações"></textarea>
+        <label>Agendar ligação: <input type="datetime-local" id="agendarLigacao" /></label>
+        <label>Agendar mensagem: <input type="datetime-local" id="agendarMensagem" /></label>
+        <button type="submit">Salvar</button>
+      </form>
+    </section>
+
+    <div id="modalEditar" class="modal">
+    <div class="modal-content">
+        <h3>Editar Lead</h3>
+        <form id="formEditar">
+        <input type="hidden" id="editIndex" />
+        <label>Nome: <input type="text" id="editNome" /></label>
+        <label>Telefone: <input type="text" id="editTelefone" /></label>
+        <label>Consultor: <input type="text" id="editConsultor" /></label>
+        <label>Observações: <textarea id="editObs"></textarea></label>
+        <label>Status:
+            <select id="editStatus">
+            <option>Novo</option>
+            <option>Distribuido</option>
+            <option>Acompanhamento</option>
+            <option>Agendado</option>
+            <option>Fechado</option>
+            <option>Perdido</option>
+            </select>
+        </label>
+        <label>Próxima ligação: <input type="datetime-local" id="editLigacao" /></label>
+        <label>Próxima mensagem: <input type="datetime-local" id="editMensagem" /></label>
+        <div class="modal-actions">
+            <button type="submit">Salvar</button>
+            <button type="button" onclick="fecharModal()">Cancelar</button>
+        </div>
+        </form>
+    </div>
+    </div>
+
+
+    <section class="agenda">
+      <h2>Próximas ações em 72h</h2>
+      <ul id="proximasAcoes"></ul>
+    </section>
+
+    <section id="graficoContainer">
+      <h2>Gráfico de Conversão</h2>
+      <canvas id="graficoConversao"></canvas>
+    </section>
+
+    <section class="historico">
+      <h2>Histórico (em breve)</h2>
+    </section>
+  </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
