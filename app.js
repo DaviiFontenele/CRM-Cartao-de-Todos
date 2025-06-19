@@ -154,7 +154,8 @@ document.getElementById("formEditar").onsubmit = e => {
     observacoes: document.getElementById("editObs").value,
     status: document.getElementById("editStatus").value,
     agendarLigacao: document.getElementById("editLigacao").value,
-    agendarMensagem: document.getElementById("editMensagem").value
+    agendarMensagem: document.getElementById("editMensagem").value,
+    dataEntrada: document.getElementById("editEntrada").value
   };
   fecharModal();
   salvarLeads(); // ✅ ESSA LINHA PRECISA TER A FUNÇÃO GLOBAL
