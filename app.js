@@ -57,7 +57,7 @@ function renderizar() {
       <strong>${lead.nome}</strong><br>
       📞 ${lead.telefone}<br>
       👤 ${lead.consultor}<br>
-      🕓 Entrada: ${formatarData(lead.dataEntrada)}<br>
+      ${lead.dataEntrada ? `🕓 Entrada: ${formatarData(lead.dataEntrada)}<br>` : ""}
       ${dataLigacao ? dataLigacao + "<br>" : ""}
       ${dataMensagem ? dataMensagem + "<br>" : ""}
       📝 ${lead.observacoes || ""}
@@ -232,6 +232,7 @@ function formatarData(dataStr) {
   const dt = new Date(dataStr);
   return isNaN(dt.getTime()) ? "" : dt.toLocaleString("pt-BR");
 }
+
 
 function gerarGraficoConversao(statusData) {
   const ctx = document.getElementById("graficoConversao").getContext("2d");
