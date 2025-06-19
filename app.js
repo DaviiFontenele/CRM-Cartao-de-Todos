@@ -57,6 +57,7 @@ function renderizar() {
       <strong>${lead.nome}</strong><br>
       📞 ${lead.telefone}<br>
       👤 ${lead.consultor}<br>
+      🕓 Entrada: ${formatarData(lead.dataEntrada)}<br>
       ${dataLigacao ? dataLigacao + "<br>" : ""}
       ${dataMensagem ? dataMensagem + "<br>" : ""}
       📝 ${lead.observacoes || ""}
@@ -135,6 +136,8 @@ function editarLead(id) {
   document.getElementById("editLigacao").value = lead.agendarLigacao || "";
   document.getElementById("editMensagem").value = lead.agendarMensagem || "";
   document.getElementById("modalEditar").style.display = "flex";
+  document.getElementById("editEntrada").value = lead.dataEntrada || "";
+
 }
 
 function fecharModal() {
@@ -168,7 +171,9 @@ document.getElementById("leadForm").onsubmit = e => {
     observacoes: document.getElementById("observacoes").value,
     agendarLigacao: document.getElementById("agendarLigacao").value,
     agendarMensagem: document.getElementById("agendarMensagem").value,
-    status: "Novo"
+    status: "Novo",
+    dataEntrada: new Date().toISOString()
+
   };
   const novoRef = push(leadsRef);
   set(novoRef, novoLead);
