@@ -34,13 +34,33 @@ function renderizar() {
   const colunas = ["novo", "distribuido", "acompanhamento", "agendado", "fechado", "perdido"];
   colunas.forEach(id => (document.getElementById(id).innerHTML = ""));
   document.getElementById("totalLeads").textContent = Object.keys(leads).length;
+  document.getElementById("leadsHoje").textContent = leadsHoje;
+  document.getElementById("leadsOntem").textContent = leadsOntem;
+
 
   const contagemStatus = {};
   const conversaoConsultor = {};
   const hoje = new Date();
   const proximas = [];
 
-  
+let leadsHoje = 0;
+let leadsOntem = 0;
+
+const inicioHoje = new Date();
+inicioHoje.setHours(0, 0, 0, 0);
+
+const inicioOntem = new Date(inicioHoje);
+inicioOntem.setDate(inicioOntem.getDate() - 1);
+
+Object.values(leads).forEach(lead => {
+  const entrada = new Date(lead.dataEntrada);
+  if (entrada >= inicioHoje) {
+    leadsHoje++;
+  } else if (entrada >= inicioOntem && entrada < inicioHoje) {
+    leadsOntem++;
+  }
+});
+
 
   Object.entries(leads).forEach(([id, lead]) => {
     const card = document.createElement("div");
