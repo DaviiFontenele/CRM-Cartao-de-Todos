@@ -34,9 +34,7 @@ function renderizar() {
   const colunas = ["novo", "distribuido", "acompanhamento", "agendado", "fechado", "perdido"];
   colunas.forEach(id => (document.getElementById(id).innerHTML = ""));
   document.getElementById("totalLeads").textContent = Object.keys(leads).length;
-  document.getElementById("leadsHoje").textContent = leadsHoje;
-  document.getElementById("leadsOntem").textContent = leadsOntem;
-
+  
 
   const contagemStatus = {};
   const conversaoConsultor = {};
@@ -61,6 +59,10 @@ Object.values(leads).forEach(lead => {
   }
 });
 
+document.getElementById("leadsHoje").textContent = leadsHoje;
+document.getElementById("leadsOntem").textContent = leadsOntem;
+
+
 
   Object.entries(leads).forEach(([id, lead]) => {
     const card = document.createElement("div");
@@ -79,6 +81,7 @@ Object.values(leads).forEach(lead => {
       <strong>${lead.nome}</strong><br>
       📞 ${lead.telefone}<br>
       👤 ${lead.consultor}<br>
+      📍 Origem: ${lead.origem || "Não informada"}<br>
       ${lead.dataEntrada ? `🕓 Entrada: ${formatarData(lead.dataEntrada)}<br>` : ""}
       ${dataLigacao ? dataLigacao + "<br>" : ""}
       ${dataMensagem ? dataMensagem + "<br>" : ""}
